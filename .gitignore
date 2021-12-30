@@ -1,0 +1,7 @@
+**/*.synctex.gz
+**/*.log
+**/*.fdb_latexmk
+**/*.log
+**/*.aux
+**/*.fls
+test*.sh

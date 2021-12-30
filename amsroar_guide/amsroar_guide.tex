@@ -1,0 +1,50 @@
+\documentclass[12pt]{article}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{tcolorbox}
+\usepackage{titlesec}
+\usepackage{color, soul}
+\usepackage{xcolor}
+\usepackage{lipsum}
+\usepackage{tikz}\usetikzlibrary{shapes.misc}
+
+\title{x}
+\author{M.M.F. Umar}
+\date{\today}
+
+
+\definecolor{pantone}{HTML}{1e407c} %Proper psu color 041E42
+\definecolor{lightgray}{HTML}{D3D3D3}
+
+\newcommand\titlebar{%
+\tikz[baseline,trim left=3.1cm,trim right=3cm,rounded corners] {
+    \fill [pantone] (2.5cm,-1.5ex) rectangle (\textwidth+3cm,2.5ex);
+    }%
+}
+\titleformat{\section}{\large}{\titlebar}{0cm}
+{\textcolor{white}{\thesection.~}}
+\renewcommand*{\thesection}{\arabic{section}}
+\pagestyle{fancy}
+\topmargin -.95in
+\setlength{\headheight}{60pt}
+\rhead{\includegraphics[height=1.5cm]{images/psu_logo.png}}
+\lhead{\includegraphics[height=1.5cm]{images/careerslogo.flat.png}}
+\chead{AMS - ROAR guide}
+\cfoot{\textcolor{pantone}{\thepage}}
+\renewcommand{\headrule}{{\color{pantone}\rule{\textwidth}{2pt}}}
+\renewcommand{\footrule}{{\color{pantone}\rule{\textwidth}{2pt}}}
+\sethlcolor{lightgray}
+\newcommand{\cd}[1]{\hl{\texttt{~\$~#1}}}
+\begin{document}
+% \maketitle
+
+
+\input{sections/sec1_intro.tex}
+\input{sections/sec2_Initial_Setup.tex}
+\begin{tcolorbox}[colback=pantone!10!white,colframe=pantone,title=Note:]
+    xyz
+\end{tcolorbox}
+
+\end{document}
