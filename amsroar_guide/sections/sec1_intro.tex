@@ -11,7 +11,7 @@ There are two primary requirements in order to submit remote jobs for the AMS GU
     \item Defining the appropriate queues for remote jobs on the AMSjobs interface.
 \end{enumerate}
 Before we go into these steps, here we present a brief overview of the Amsterdam modeling suite and Penn State's Roar supercomputer. 
-Readers who are familiar with these may skip ahead to sections \ref{sec2}\todo{cross ref}
+Readers who are familiar with these may skip ahead to sections \ref{sec2:ssh_ams_roar} and \ref{sec3:defq}.
 
 \subsection*{Amsterdam modeling suite}
 Amsterdam modeling suite is software suite for computational chemistry calculations, developed by \href{https://www.scm.com/}{SCM~-~Sofware for Chemistry and Materials}. 
@@ -23,7 +23,7 @@ Detailed installation guides and documentation for AMS, on all major operating s
     If the server AMS version is AMS2019 or older, the local installation should also be AMS2019 or older. 
     AMS2020.xxx and newer versions on the remote server are compatible with any local AMS version.
 \end{tcolorbox}
-\noindent The AMS suite consists of several GUIs tailored to carry out various tasks related to DFT and other computational chemistry calculations. Readers are referred to the AMS guide for full details on the different GUIs. In this document we will be primarily concerned about the AMSjobs interface, where all the requisite setup for remote jobs will be performed.
+\noindent The AMS suite consists of several GUIs tailored to carry out various tasks related to DFT and other computational chemistry calculations. Please refer to the \href{https://www.scm.com/doc/Tutorials/GettingStarted/GUIModules.html#modules}{AMS guide} for full details on the different GUIs. In this document we will be primarily concerned about the AMSjobs interface, where all the requisite setup for remote jobs will be performed.
 \subsection*{Roar Supercomputer}
 The Roar supercomputer is a high-performance computing(HPC) infrastructure available to researchers affiliated to Penn State university. 
 Roar managed by the Institute for Computational and Data Sciences(ICDS) at Penn State. 
@@ -36,3 +36,4 @@ On Roar the following command will load AMS2020.103, \\
 \codeinline{ $ module load ams}.\\
 
 The remote hostname for ssh logins onto Roar is, \codeinline{submit.aci.ics.psu.edu}. Additionally, batch jobs on Roar are schedulin is handled by Portable Batch System (PBS).
+\vspace{1em}

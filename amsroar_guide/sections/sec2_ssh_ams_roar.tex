@@ -1,14 +1,77 @@
-\section{\textcolor{white}{Establishing ssh connection between local AMS and remote machine} \label{sec2}
+\section{\textcolor{white}
+    {Establishing ssh connection between local AMS and remote machine} \label{sec2:ssh_ams_roar}
 }
 To submit remote jobs from the AMSjobs interface, we need to setup ssh keys, such that the ssh connection does not require entering the password or any other user intervention. 
 However, setting up the ssh keys does not bypass the two factor authentication (2FA) requirement when logging onto Roar computers. 
 Once a login is authorized using 2FA, subsequent logins for (x time?)\todo{check} do not require 2FA. 
 So unfortunately, an ssh login from the terminal is required before performing any remote task (submitting remote jobs, retrieving remote files etc.). \\
 
+The default timeout for ssh connections used by AMS is typically too low. 
+A higher timeout can be set as follows. 
+On AMSjobs interface, go to \codeinline{SCM -> Preferences} and then on the AMSpreferences window on the Module tab select AMSjobs. 
+On this window, make the following changes:
+\begin{itemize}
+    \item \codeinline{Local Ssh Command:} set to \codeinline{ssh -q}.
+    \item \codeinline{Timeout For Remote Commands:} set to 60 seconds.
+    \item \codeinline{rsync command:} set to \codeinline{rsync -q}.
+    \item \codeinline{Refresh result file every:} set to 60 seconds.
+\end{itemize}
+
+Next create the required ssh keys from the terminal. 
+Users on Linux and Mac operating systems, who already have set up ssh keys for password-free (even the ssh keys should have no passphrase) login to Roar may skip ahead to section \todo{cref}. 
+For users on Windows please complete the steps outlined in the highlighted region below before performing the following steps.\\
+\vspace{1ex}
 \begin{tcolorbox}[colback=pantone!10!white,colframe=pantone,title=\textit{For Windows local machines only, perform this step first.}]
-    xxx\\
-    xxx\\
-    xxx\\
-    x
+    AMS handles remote jobs by sending commands to a bash-like shell in the background. 
+    This shell is accessible to users from the context menu \codeinline[inboxgray]{ Help -> Command-line } on the AMSjobs interface and entering the command \codeinline[inboxgray]{bash} in the command prompt that pops up. \\
+
+    We refer to this shell as bash-like because of a few peculiarities found here. 
+    Primarily of relevance to us is the fact the \codeinline[inboxgray]{$HOME} environment variable does not point to the same location as \codeinline[inboxgray]{/home/$USERNAME/ } as expected in Linux systems. 
+    AMS looks for ssh keys in the latter folder. 
+    The root folder for the terminal is located at \codeinline[inboxgray]{ <path to AMS installation>/msys/}. 
+    And the directory \codeinline[inboxgray]{ /home/<username>/ } does not exist. 
+    This folder needs to be created before the ssh keys are created, using the following command.
+    \begin{lstlisting}[backgroundcolor=\color{inboxgray},
+        frame=single,
+        gobble=8
+        ]
+        $ mkdir -pv /home/$USERNAME
+    \end{lstlisting}
+    The discrepancy between \codeinline[inboxgray]{$HOME} and \codeinline[inboxgray]{/home/$USERNAME/} results in further complications because AMS uses both locations. 
+    The \codeinline[inboxgray]{.ssh} directory is stored at \codeinline[inboxgray]{/home/$USERNAME}, and the \codeinline[inboxgray]{.scm_gui} directory is stored in \codeinline[inboxgray]{$HOME/}.
+    When implementing the commands provided below, use \codeinline[inboxgray]{$HOME} as is, and change \Colorbox{inboxgray}{\lstinline[literate={~} {$\sim$}{1}]|~|} to \codeinline[inboxgray]{/home/$USERNAME}.
 \end{tcolorbox}
-The following commands can be used to  
+When logging in to Roar for the first time users will be prompted to add the ECDSA key fingerprint of Roar host to the \Colorbox{mygray}{\lstinline[literate={~} {$\sim$}{1}]|~/.ssh/known_hosts|} file. 
+Please do so, as this is required for remote job submissions from the AMS GUI. 
+The commands to setup the ssh keys are given below.
+\begin{itemize}
+    \item 
+    Create public and private ssh key pair: 
+    \begin{lstlisting}[gobble=8]
+        $ ssh-keygen
+    \end{lstlisting}
+    When prompted for a passphrase for the ssh keys leave it blank. Also the use default location to store the key \Colorbox{mygray}{\lstinline[literate={~} {$\sim$}{1}]|~/.ssh/id_rsa|}.
+    \item 
+    Copy public key to \codeinline{$HOME/.ssh/authorized_keys} on the remote host. On Windows this step needs to be done manually. For other os the command is (replace \codeinline{xyz123} with valid remote username),  
+    \begin{lstlisting}[gobble=8]
+        $ ssh-copy-id -i ~/.ssh/id_rsa.pub xyz123@submit.aci.ics.psu.edu
+    \end{lstlisting}
+    On Windows machines, the above can be accomplished with the following commands. 
+    \begin{lstlisting}[
+        gobble=8,
+        xleftmargin=-5pt,
+        xrightmargin=-5pt
+    ]
+        $ key=$(cat /home/$USERNAME/.ssh/id_rsa.pub)
+        $ ssh xyz123@submit.aci.ics.psu.edu "echo $key >> .ssh/authorized_keys"
+    \end{lstlisting}
+    \item 
+    The final step is to test if the keys are setup properly. 
+    This can be done by performing an ssh login onto Roar using the command:
+    \begin{lstlisting}[gobble=8]
+        $ ssh xyz123@submit.aci.ics.psu.edu
+    \end{lstlisting}
+    If the keys are setup properly you should be logged in without a password prompt (2FA may still be required). 
+\end{itemize}
+ 
+\pagebreak

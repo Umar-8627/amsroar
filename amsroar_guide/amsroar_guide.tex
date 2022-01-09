@@ -2,15 +2,18 @@
 \usepackage[letterpaper, margin=1in]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{fancyhdr,graphicx,tcolorbox,titlesec,color,
-     soul,xcolor,hyperref,todonotes,listings
+     soul,xcolor,hyperref,todonotes,listings,setspace, realboxes
+    %  xparse
 }
 \usepackage{lipsum}
 \usepackage{tikz}\usetikzlibrary{shapes.misc}
 
-
+% set linspace
+\setstretch{1.25}
 % Defining color
 \definecolor{pantone}{HTML}{1e407c} %Proper psu color 041E42
 \definecolor{mygray}{gray}{0.9}
+\definecolor{inboxgray}{gray}{.8}
 
 % Setting up highlighted section titles
 \newcommand\titlebar{%
@@ -20,7 +23,7 @@
     }
 \titleformat{\section}{\large}{\titlebar}{0cm}
     {\textcolor{white}{
-        %\thesection.~
+        \thesection.~
     }}
 \renewcommand*{\thesection}{\arabic{section}}
 
@@ -50,11 +53,23 @@
     
     
 %  Setup for code snippets
-\newcommand{\codeinline}[1]{\colorbox{mygray}{\lstinline|#1|}}
+\newcommand{\codeinline}[2][mygray]{
+    \colorbox{#1}{\lstinline[
+        literate={~} {$\sim$}{1}
+    ]|#2|
+    }
+}
+
 \lstset{
+    basicstyle=\ttfamily\footnotesize,
     backgroundcolor=\color{mygray},
     language=bash,
-    breaklines=true
+    breaklines=true,
+    xleftmargin=.25in,
+    xrightmargin=.25in,
+    literate={~} {$\sim$}{1},
+    gobble=4,
+    showstringspaces=false   
 }
 
 \title{x}
