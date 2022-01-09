@@ -1,33 +1,34 @@
 \documentclass[12pt]{article}
 \usepackage[letterpaper, margin=1in]{geometry}
 \usepackage[utf8]{inputenc}
-\usepackage{fancyhdr}
-\usepackage{graphicx}
-\usepackage{tcolorbox}
-\usepackage{titlesec}
-\usepackage{color, soul}
-\usepackage{xcolor}
+\usepackage{fancyhdr,graphicx,tcolorbox,titlesec,color,
+     soul,xcolor,hyperref,todonotes,listings
+}
 \usepackage{lipsum}
 \usepackage{tikz}\usetikzlibrary{shapes.misc}
 
-\title{x}
-\author{M.M.F. Umar}
-\date{\today}
 
-
+% Defining color
 \definecolor{pantone}{HTML}{1e407c} %Proper psu color 041E42
-\definecolor{lightgray}{HTML}{D3D3D3}
+\definecolor{mygray}{gray}{0.9}
 
+% Setting up highlighted section titles
 \newcommand\titlebar{%
 \tikz[baseline,trim left=3.1cm,trim right=3cm,rounded corners] {
     \fill [pantone] (2.5cm,-1.5ex) rectangle (\textwidth+3cm,2.5ex);
     }%
-}
+    }
 \titleformat{\section}{\large}{\titlebar}{0cm}
-{\textcolor{white}{\thesection.~}}
+    {\textcolor{white}{
+        %\thesection.~
+    }}
 \renewcommand*{\thesection}{\arabic{section}}
+
+% Pagestlye and dimensions
 \pagestyle{fancy}
 \topmargin -.95in
+
+% Headers and Footers
 \setlength{\headheight}{60pt}
 \rhead{\includegraphics[height=1.5cm]{images/psu_logo.png}}
 \lhead{\includegraphics[height=1.5cm]{images/careerslogo.flat.png}}
@@ -35,16 +36,36 @@
 \cfoot{\textcolor{pantone}{\thepage}}
 \renewcommand{\headrule}{{\color{pantone}\rule{\textwidth}{2pt}}}
 \renewcommand{\footrule}{{\color{pantone}\rule{\textwidth}{2pt}}}
-\sethlcolor{lightgray}
-\newcommand{\cd}[1]{\hl{\texttt{~\$~#1}}}
+
+
+\sethlcolor{mygray}
+
+%  Set up for hyperlinks
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    pdftitle={AMS-ROAR remote jobs guide},
+    }
+    
+    
+%  Setup for code snippets
+\newcommand{\codeinline}[1]{\colorbox{mygray}{\lstinline|#1|}}
+\lstset{
+    backgroundcolor=\color{mygray},
+    language=bash,
+    breaklines=true
+}
+
+\title{x}
+\author{M.M.F. Umar}
+\date{\today}
 \begin{document}
 % \maketitle
 
 
 \input{sections/sec1_intro.tex}
-\input{sections/sec2_Initial_Setup.tex}
-\begin{tcolorbox}[colback=pantone!10!white,colframe=pantone,title=Note:]
-    xyz
-\end{tcolorbox}
+\input{sections/sec2_ssh_ams_roar.tex}
+\input{sections/sec3_defq.tex }
 
 \end{document}

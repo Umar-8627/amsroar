@@ -1,4 +1,38 @@
-\section{\textcolor{white}{INTRODUCTION}}
+\section{\textcolor{white}{Introduction}\label{sec:intro}}
 
-This guide for users of Amsterdam Modeling Suite (AMS) to establish a pipeline to submit remote jobs on to on Penn State's ROAR super computers. remote 
-\subsection{Amsterdam Modeling Suite Installation}
+This guide is for users who submit Amsterdam Modeling Suite (AMS) jobs on Penn State's Roar supercomputer. 
+The AMS installation guide provides a \href{https://www.scm.com/doc/GUI/Set_up.html#running-remotely}{brief guide to submitting remote jobs} from the AMS interface.
+However, there are additional troubleshooting steps required to successfully submit AMS remote jobs to Roar. 
+Performing the necessary additional setup outlined in this document will allow users to allow users to submit remote jobs onto the Roar computers directly from their local AMS graphical user interface (GUI). 
+Further, we hope these troubleshooting steps maybe helpful for users who wish to submit remote jobs to other servers. \\
+There are two primary requirements in order to submit remote jobs for the AMS GUI.
+\begin{enumerate}
+    \item Setting up ssh keys such the the AMS GUI can communicate with the remote servers without user intervention.
+    \item Defining the appropriate queues for remote jobs on the AMSjobs interface.
+\end{enumerate}
+Before we go into these steps, here we present a brief overview of the Amsterdam modeling suite and Penn State's Roar supercomputer. 
+Readers who are familiar with these may skip ahead to sections \ref{sec2}\todo{cross ref}
+
+\subsection*{Amsterdam modeling suite}
+Amsterdam modeling suite is software suite for computational chemistry calculations, developed by \href{https://www.scm.com/}{SCM~-~Sofware for Chemistry and Materials}. 
+AMS contains software products capable of handling density functional theory (DFT), molecular Dynamics (MD), and other ab-initio and semi empirical computational chemistry simulations. 
+In addition to the integrated software modules, AMS can be used as an interface to handle QuantumEspresso(QE) and Vienna ab-initio simulation package(VASP) jobs. 
+Detailed installation guides and documentation for AMS, on all major operating systems, can be found on the \href{https://www.scm.com/doc/Installation/index.html}{AMS installation guide} and accompanying \href{https://www.scm.com/support/ams-installation-videos/}{video guides}. 
+\begin{tcolorbox}[colback=pantone!10!white,colframe=pantone,title=\textit{Note:}]
+    Version compatibility with the AMS installation on the remote server needs to be taken into consideration when installing AMS on the local Machine. 
+    If the server AMS version is AMS2019 or older, the local installation should also be AMS2019 or older. 
+    AMS2020.xxx and newer versions on the remote server are compatible with any local AMS version.
+\end{tcolorbox}
+\noindent The AMS suite consists of several GUIs tailored to carry out various tasks related to DFT and other computational chemistry calculations. Readers are referred to the AMS guide for full details on the different GUIs. In this document we will be primarily concerned about the AMSjobs interface, where all the requisite setup for remote jobs will be performed.
+\subsection*{Roar Supercomputer}
+The Roar supercomputer is a high-performance computing(HPC) infrastructure available to researchers affiliated to Penn State university. 
+Roar managed by the Institute for Computational and Data Sciences(ICDS) at Penn State. 
+For a detailed overview of Roar, readers are referred to the \href{https://www.icds.psu.edu/computing-services/roar-user-guide/}{Roar user guide}. \\
+
+Here, we will review the details about Roar that our relevant to our task of submitting AMS remote jobs. 
+There are two versions AMS available to be loaded as modules on Roar: AMS2020.103, and ADF2019.303. 
+We recommend using the AMS2020.103 version, since it is compatible with any version of AMS installed on the local machine. 
+On Roar the following command will load AMS2020.103, \\
+\codeinline{ $ module load ams}.\\
+
+The remote hostname for ssh logins onto Roar is, \codeinline{submit.aci.ics.psu.edu}. Additionally, batch jobs on Roar are schedulin is handled by Portable Batch System (PBS).

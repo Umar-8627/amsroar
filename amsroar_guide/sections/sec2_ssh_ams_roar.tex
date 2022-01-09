@@ -1,3 +1,14 @@
 \section{\textcolor{white}{Establishing ssh connection between local AMS and remote machine} \label{sec2}
 }
-abc def \codeinline{cd \$HOME}
+To submit remote jobs from the AMSjobs interface, we need to setup ssh keys, such that the ssh connection does not require entering the password or any other user intervention. 
+However, setting up the ssh keys does not bypass the two factor authentication (2FA) requirement when logging onto Roar computers. 
+Once a login is authorized using 2FA, subsequent logins for (x time?)\todo{check} do not require 2FA. 
+So unfortunately, an ssh login from the terminal is required before performing any remote task (submitting remote jobs, retrieving remote files etc.). \\
+
+\begin{tcolorbox}[colback=pantone!10!white,colframe=pantone,title=\textit{For Windows local machines only, perform this step first.}]
+    xxx\\
+    xxx\\
+    xxx\\
+    x
+\end{tcolorbox}
+The following commands can be used to  

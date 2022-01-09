@@ -1,7 +1,7 @@
 **/*.synctex.gz
 **/*.log
 **/*.fdb_latexmk
-**/*.log
+**/*.out
 **/*.aux
 **/*.fls
 test*.sh
