@@ -1,0 +1,23 @@
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\setlength{\extrarowheight}{10pt}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{llll}
+    \textbf{Flag}       & \textbf{Options}   & \textbf{Description}                                                                                                                                                                  &                                                        \\ \hline
+    \multirow{3}{*}{\codeinline{-l}} & nodes=1            & \multicolumn{1}{l|}{Requested number of nodes}                                                                                                                                        & \multicolumn{1}{c}{\multirow{4}{*}{\textit{Required}}} \\ \cline{2-3}
+                        & ppn=4              & \multicolumn{1}{l|}{Processors per node}                                                                                                                                              & \multicolumn{1}{c}{}                                   \\ \cline{2-3}
+                        & walltime=\$options & \multicolumn{1}{l|}{
+                        \setlength{\extrarowheight}{0pt}    
+                        \begin{tabular}[c]{@{}l@{}}Walltime requested. \\ Set to \codeinline{Default options:} field
+                        \end{tabular}
+                        \setlength{\extrarowheight}{10pt}}                                                                      & \multicolumn{1}{c}{}                                   \\ \cline{1-3}
+    \codeinline{-A}                  & open               & \multicolumn{1}{l|}{Queue allocation}                                                                                                                                                 & \multicolumn{1}{c}{}                                   \\ \hline \hline
+    \codeinline{-l}                  & pmem=4gb           & \multicolumn{1}{l|}{Memory per processor}                                                                                                                                             & \multirow{3}{*}{\textit{Recommended}}                           \\ \cline{1-3}
+    \codeinline{-j}                  & oe                 & \multicolumn{1}{l|}{Redirect qsub \codeinline{stdout} and \codeinline{stderr}}                                                                                                                 &                                                        \\ \cline{1-3}
+    \codeinline{-z}                  &                    & \multicolumn{1}{l|}{
+    \setlength{\extrarowheight}{0pt}    
+    \begin{tabular}[c]{@{}l@{}}Suppress qsub command printing\\confirmation to terminal .
+    \end{tabular}} \setlength{\extrarowheight}{10pt}&                                                        \\ \hline
+    \end{tabular}
+    \end{table}
